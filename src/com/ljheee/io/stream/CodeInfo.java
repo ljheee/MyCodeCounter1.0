@@ -15,7 +15,8 @@ public class CodeInfo {
 		readLine(new File("D:/mm.txt"));
 	}
 
-	public static void readLine(File file) {
+	public static int[] readLine(File file) {
+		int[] a = new int[4];
 
 		int totalLine = 0;
 		int blankLine = 0;
@@ -64,15 +65,17 @@ public class CodeInfo {
 			//代码函数
 			codeLine = totalLine - blankLine - commentLine;
 			
-			System.out.printf("总行：%d\n",totalLine);
-			System.out.printf("空行：%d\n",blankLine);
-			System.out.printf("注释：%d\n",commentLine);
-			System.out.printf("代码：%d\n",codeLine);
-			
+//			System.out.printf("总行：%d\n",totalLine);
+//			System.out.printf("空行：%d\n",blankLine);
+//			System.out.printf("注释：%d\n",commentLine);
+//			System.out.printf("代码：%d\n",codeLine);
+			a[0] = totalLine;
+			a[1] = blankLine;
+			a[2] = commentLine;
+			a[3] = codeLine;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		return a;
 	}
-
 }
