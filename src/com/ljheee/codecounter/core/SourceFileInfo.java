@@ -1,8 +1,8 @@
-package com.ljheee.core;
+package com.ljheee.codecounter.core;
 
 import java.io.File;
 
-import com.ljheee.io.stream.CodeInfo;
+import com.ljheee.codecounter.stream.CodeInfo;
 
 public class SourceFileInfo{
 	
