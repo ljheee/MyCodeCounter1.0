@@ -38,7 +38,7 @@ public class UIFrame {
 
 	ActionHandle handle = new ActionHandle();
 	
-	private JTextField srcFiles;
+	private JTextField srcFiles,fileType;
 
 	JButton viewFileBtn,analyseBtn;
 	JFileChooser fileChooser = new JFileChooser();
@@ -50,8 +50,8 @@ public class UIFrame {
 		
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);//可选择目录
 
-		jf = new JFrame("Zip Tool 1.0");
-//		jf.setSize(750,510 );
+		jf = new JFrame("SourceFileTool");
+		jf.setSize(750,510 );
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setLocationRelativeTo(null);
 
@@ -116,6 +116,7 @@ public class UIFrame {
 		JLabel label = new JLabel("\u6587\u4EF6\u6E90\uFF1A");//文件源
 		
 		srcFiles = new JTextField();
+		fileType = new JTextField("源文件类型，如.java");
 		srcFiles.setColumns(10);
 		//浏览srcFiles
 		viewFileBtn = new JButton("浏览");
@@ -124,6 +125,7 @@ public class UIFrame {
 		c1.add(label);
 		c1.add(srcFiles);
 		c1.add(viewFileBtn);
+		c1.add(fileType);
 		c1.add(analyseBtn);
 		
 		
@@ -214,7 +216,7 @@ public class UIFrame {
 
 		jf.getContentPane().add(bottomToolBar, BorderLayout.SOUTH);// 下面--放“状态栏”
 
-		jf.pack();;
+//		jf.pack();
 		jf.setVisible(true);
 	}
 
@@ -265,7 +267,12 @@ public class UIFrame {
 			}
 			
 			if (e.getSource() == analyseBtn){//统计文件
-				SourceFileList  list = new ScanFiles(src, ".java").scan();;
+				String filetype = fileType.getText().trim();
+				if(src == null | filetype.equals("")){
+					JOptionPane.showMessageDialog(jf, "请选择源文件目录和类型");
+					return;
+				}
+				SourceFileList  list = new ScanFiles(src, filetype).scan();;
 				
 				int a[] = count(list);
 				total.setText(a[0]+"");
@@ -278,6 +285,9 @@ public class UIFrame {
 
 		}
 
+		/**
+		 * 统计结果
+		 */
 		private int[] count(SourceFileList list) {
 			int ttotal = 0,ccode = 0,ccomment = 0,bblack = 0;
 			
